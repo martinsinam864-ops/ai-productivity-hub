@@ -68,9 +68,8 @@ function ChatWindow({ threadId }: { threadId: string }) {
     window.dispatchEvent(new Event("workhub:threads-updated"));
   }, [messages, threadId]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const text = input.trim();
+  const handleSubmit = (message: { text: string }) => {
+    const text = (message.text ?? input).trim();
     if (!text || isLoading) return;
     sendMessage({ text });
     setInput("");
