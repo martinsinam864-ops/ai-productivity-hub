@@ -1,5 +1,5 @@
 import { createFileRoute, useParams } from "@tanstack/react-router";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport, type UIMessage } from "ai";
 import { AlertTriangle, Sparkles } from "lucide-react";
@@ -43,15 +43,7 @@ function ChatWindow({ threadId }: { threadId: string }) {
   });
 
   const [input, setInput] = useState("");
-  const inputRef = useRef<HTMLTextAreaElement | null>(null);
   const isLoading = status === "submitted" || status === "streaming";
-
-  useEffect(() => {
-    inputRef.current?.focus();
-  }, [threadId]);
-  useEffect(() => {
-    if (status === "ready") inputRef.current?.focus();
-  }, [status]);
 
   // Persist messages whenever they change
   useEffect(() => {
@@ -131,7 +123,7 @@ function ChatWindow({ threadId }: { threadId: string }) {
         <div className="mx-auto w-full max-w-3xl">
           <PromptInput onSubmit={handleSubmit}>
             <PromptInputTextarea
-              ref={inputRef}
+              autoFocus
               placeholder="Message Workhub AI…"
               value={input}
               onChange={(e) => setInput(e.target.value)}
