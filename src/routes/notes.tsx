@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { FileText, Sparkles } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { Button } from "@/components/ui/button";
@@ -26,7 +26,7 @@ function NotesPage() {
   const [loading, setLoading] = useState(false);
   const fn = useServerFn(summarizeNotes);
 
-  const submit = async (e: React.FormEvent) => {
+  const submit = async (e: FormEvent) => {
     e.preventDefault();
     if (saved.notes.trim().length < 10) {
       toast.error("Paste at least a few lines of notes.");

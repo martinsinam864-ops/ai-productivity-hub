@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { Mail, Sparkles } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { Button } from "@/components/ui/button";
@@ -42,7 +42,7 @@ function EmailPage() {
   const [loading, setLoading] = useState(false);
   const fn = useServerFn(generateEmail);
 
-  const submit = async (e: React.FormEvent) => {
+  const submit = async (e: FormEvent) => {
     e.preventDefault();
     if (!saved.recipient.trim() || !saved.purpose.trim()) {
       toast.error("Please fill in recipient and purpose.");

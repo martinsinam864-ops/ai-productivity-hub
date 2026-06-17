@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { ListChecks, Sparkles } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { Button } from "@/components/ui/button";
@@ -32,7 +32,7 @@ function PlannerPage() {
   const [loading, setLoading] = useState(false);
   const fn = useServerFn(planTasks);
 
-  const submit = async (e: React.FormEvent) => {
+  const submit = async (e: FormEvent) => {
     e.preventDefault();
     if (!saved.goal.trim()) {
       toast.error("Describe your goal.");

@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { Search, Sparkles } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { Button } from "@/components/ui/button";
@@ -38,7 +38,7 @@ function ResearchPage() {
   const [loading, setLoading] = useState(false);
   const fn = useServerFn(researchTopic);
 
-  const submit = async (e: React.FormEvent) => {
+  const submit = async (e: FormEvent) => {
     e.preventDefault();
     if (!saved.topic.trim()) {
       toast.error("Enter a topic.");
