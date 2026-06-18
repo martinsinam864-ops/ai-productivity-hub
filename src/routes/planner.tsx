@@ -13,6 +13,7 @@ import { planTasks } from "@/lib/ai-tools.functions";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/planner")({
+  ssr: false,
   head: () => ({
     meta: [
       { title: "AI Task Planner — Workhub AI" },
