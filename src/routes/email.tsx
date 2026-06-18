@@ -20,6 +20,7 @@ import { generateEmail } from "@/lib/ai-tools.functions";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/email")({
+  ssr: false,
   head: () => ({
     meta: [
       { title: "Smart Email Generator — Workhub AI" },

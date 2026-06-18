@@ -12,6 +12,7 @@ import { summarizeNotes } from "@/lib/ai-tools.functions";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/notes")({
+  ssr: false,
   head: () => ({
     meta: [
       { title: "Meeting Notes Summarizer — Workhub AI" },

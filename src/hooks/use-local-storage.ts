@@ -1,29 +1,30 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export function useLocalStorage<T>(key: string, initial: T) {
-  const [value, setValue] = useState<T>(initial);
-  const [hydrated, setHydrated] = useState(false);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
+  const [value, setValue] = useState<T>(() => {
+    if (typeof window === "undefined") return initial;
     try {
       const raw = window.localStorage.getItem(key);
-      if (raw !== null) setValue(JSON.parse(raw) as T);
+      return raw !== null ? (JSON.parse(raw) as T) : initial;
     } catch {
-      /* ignore */
+      return initial;
     }
-    setHydrated(true);
-  }, [key]);
+  });
 
+  const firstRun = useRef(true);
   useEffect(() => {
-    if (!hydrated || typeof window === "undefined") return;
+    if (firstRun.current) {
+      firstRun.current = false;
+      return;
+    }
+    if (typeof window === "undefined") return;
     try {
       window.localStorage.setItem(key, JSON.stringify(value));
     } catch {
       /* ignore */
     }
-  }, [key, value, hydrated]);
+  }, [key, value]);
 
   const update = useCallback((v: T | ((prev: T) => T)) => setValue(v), []);
-  return [value, update, hydrated] as const;
+  return [value, update, true] as const;
 }

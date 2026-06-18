@@ -19,6 +19,7 @@ import { researchTopic } from "@/lib/ai-tools.functions";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/research")({
+  ssr: false,
   head: () => ({
     meta: [
       { title: "AI Research Assistant — Workhub AI" },
